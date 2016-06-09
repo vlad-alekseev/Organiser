@@ -1,0 +1,44 @@
+<resources>
+    <string name="app_name">Organiser</string>
+    <string name="calendar">Calendar</string>
+    <string name="forecast">Forecast</string>
+    <string name="text_tab_header">Some text</string>
+    <string name="hello_world">Hello world</string>
+    <string name="enter_city_name">Enter the name of city</string>
+    <string name="get_forecast">Get forecast</string>
+    <string name="cancel">Cancel</string>
+    <string name="weather">Weather</string>
+    <string name="reminder_saved">Reminder saved!</string>
+    <string name="message_empty">Message empty</string>
+    <string name="no_internet">Ooops!!! Perhaps is not internet connection!</string>
+    <string name="alarm">Alarm: </string>
+    <string name="select_type">Select type: </string>
+    <string name="stop">stop</string>
+    <string name="close">Close</string>
+    <string name="message_icon">message icon</string>
+    <string name="icon_forecast">icon forecast</string>
+    <string name="icon_previous_month">icon previous month</string>
+    <string name="icon_next_month">icon next month</string>
+    <string name="week_day_su">Su</string>
+    <string name="week_day_mo">Mo</string>
+    <string name="week_day_tu">Tu</string>
+    <string name="week_day_we">We</string>
+    <string name="week_day_th">Th</string>
+    <string name="week_day_fr">Fr</string>
+    <string name="week_day_sa">Sa</string>
+    <string name="your_message">Your message</string>
+    <string name="save">save</string>
+    <string name="delete_reminder">delete reminder</string>
+    <string name="wind_speed">Wind speed:</string>
+    <string name="sky">Sky:</string>
+    <string name="m_s">m/s</string>
+
+    <string-array name="reminderType">
+        <item>Shopping</item>
+        <item>Meeting</item>
+        <item>Trip</item>
+        <item>Sale</item>
+        <item>Other</item>
+    </string-array>
+
+</resources>

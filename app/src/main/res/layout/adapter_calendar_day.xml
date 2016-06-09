@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    card_view:cardCornerRadius="0dp"
+    card_view:cardElevation="1dp"
+    card_view:cardUseCompatPadding="true">
+
+    <RelativeLayout
+        android:id="@+id/calendarItemBody"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/numOfDay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:clickable="false"
+            android:gravity="center"
+            android:textColor="@color/colorMiddleDark"
+            android:textSize="@dimen/middleTextSize"/>
+
+        <ImageButton
+            android:id="@+id/messageIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:background="@color/colorTransparent"
+            android:clickable="false"
+            android:contentDescription="@string/message_icon" />
+
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>

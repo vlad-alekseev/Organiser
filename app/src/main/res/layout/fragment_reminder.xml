@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/standardIndent">
+
+            <TextView
+                android:id="@+id/reminderDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:background="@color/materialDesignOrange"
+                android:paddingBottom="@dimen/standardMiddlePadding"
+                android:paddingTop="@dimen/standardMiddlePadding"
+                android:text="00.00.2000"
+                android:gravity="center"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/middleTextSize" />
+
+            <Spinner
+                android:id="@+id/spinnerCurrency"
+                android:layout_width="@dimen/spinnerWidth"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/timeReminder"
+                android:layout_alignStart="@+id/timeReminder"
+                android:layout_alignTop="@+id/textView13"
+                android:layout_alignWithParentIfMissing="false"
+                android:background="@drawable/shape_border_black"
+                android:entries="@array/reminderType"
+                android:gravity="end|center_horizontal"
+                android:imeOptions="actionDone"
+                android:padding="5dp"
+                android:singleLine="true"/>
+
+            <EditText
+                android:id="@+id/textMessage"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentTop="false"
+                android:layout_alignWithParentIfMissing="false"
+                android:layout_below="@+id/spinnerCurrency"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="@dimen/standardIndent"
+                android:background="@drawable/shape_border_black"
+                android:hint="@string/your_message"
+                android:imeOptions="actionDone"
+                android:inputType="textMultiLine"
+                android:lines="5"
+                android:padding="@dimen/standardMiddlePadding"
+                android:selectAllOnFocus="false"
+                android:singleLine="false" />
+
+            <Button
+                android:id="@+id/saveReminderButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignEnd="@+id/textMessage"
+                android:layout_alignParentBottom="true"
+                android:layout_alignRight="@+id/textMessage"
+                android:layout_below="@+id/textMessage"
+                android:background="@drawable/rectangle_rounded_all_green"
+                android:text="@string/save"
+                android:textColor="@color/colorWhite" />
+
+            <TextView
+                android:id="@+id/timeReminder"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/reminderDate"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="@dimen/standardIndent"
+                android:background="@drawable/rectangle_rounded_all_green"
+                android:paddingBottom="2dp"
+                android:paddingLeft="@dimen/standardMiddlePadding"
+                android:paddingRight="@dimen/standardMiddlePadding"
+                android:paddingTop="2dp"
+                android:text="20:15"
+                android:textColor="@color/colorWhite"
+                android:textSize="18sp" />
+
+            <android.support.v7.widget.SwitchCompat
+                android:id="@+id/switch_compat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/timeReminder"
+                android:layout_toEndOf="@+id/timeReminder"
+                android:layout_toRightOf="@+id/timeReminder"
+                android:checked="false"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:textOff="OFF"
+                android:textOn="ON"
+                app:showText="false" />
+
+            <Button
+                android:id="@+id/deleteCalendarItemButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/textMessage"
+                android:layout_alignStart="@+id/textMessage"
+                android:layout_below="@+id/textMessage"
+                android:background="@drawable/rectangle_rounded_all_orange"
+                android:padding="10dp"
+                android:text="@string/delete_reminder"
+                android:textColor="@color/colorWhite"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/textView12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/timeReminder"
+                android:layout_toLeftOf="@+id/timeReminder"
+                android:layout_toStartOf="@+id/timeReminder"
+                android:text="@string/alarm"
+                android:textSize="@dimen/middleTextSize" />
+
+            <TextView
+                android:id="@+id/textView13"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignEnd="@+id/textView12"
+                android:layout_alignRight="@+id/textView12"
+                android:layout_below="@+id/textView12"
+                android:layout_marginTop="@dimen/standardIndent"
+                android:text="@string/select_type"
+                android:textSize="@dimen/middleTextSize" />
+
+        </RelativeLayout>
+    </ScrollView>
+
+</RelativeLayout>

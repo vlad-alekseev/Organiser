@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorWhite">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:id="@+id/calendarCurrentDate"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/materialDesignOrange"
+                android:paddingBottom="@dimen/calendarHeadLinePadding"
+                android:paddingTop="@dimen/calendarHeadLinePadding">
+
+                <TextView
+                    android:id="@+id/currentDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="10dp"
+                    android:text="June 0000"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/middleTextSize"
+                    android:textStyle="bold" />
+
+                <ImageButton
+                    android:id="@+id/prevMonthButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/nextMonthButton"
+                    android:layout_toLeftOf="@+id/nextMonthButton"
+                    android:layout_toStartOf="@+id/nextMonthButton"
+                    android:background="@color/colorTransparent"
+                    android:src="@mipmap/ic_arrow_bottom"
+                    android:paddingRight="@dimen/nextAndPrevMonthIconPadding"
+                    android:paddingLeft="@dimen/nextAndPrevMonthIconPadding"
+                    android:contentDescription="@string/icon_next_month" />
+
+                <ImageButton
+                    android:id="@+id/nextMonthButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:background="@color/colorTransparent"
+                    android:src="@mipmap/ic_arrow_top"
+                    android:paddingRight="@dimen/nextAndPrevMonthIconPadding"
+                    android:paddingLeft="@dimen/nextAndPrevMonthIconPadding"
+                    android:contentDescription="@string/icon_previous_month" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/calendarCurrentDate"
+                android:layout_centerHorizontal="true"
+                android:background="@color/materialDarkOrange"
+                android:orientation="horizontal"
+                android:paddingBottom="@dimen/standardMiddlePadding"
+                android:paddingTop="@dimen/standardMiddlePadding"
+                android:theme="@style/WhiteTextColor"
+                android:weightSum="7">
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/week_day_su"
+                    android:gravity="center"/>
+
+                <TextView
+                    android:id="@+id/textView6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/week_day_mo"
+                    android:gravity="center" />
+
+                <TextView
+                    android:id="@+id/textView7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/week_day_tu"
+                    android:gravity="center" />
+
+                <TextView
+                    android:id="@+id/textView8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/week_day_we"
+                    android:gravity="center" />
+
+                <TextView
+                    android:id="@+id/textView9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/week_day_th"
+                    android:gravity="center" />
+
+                <TextView
+                    android:id="@+id/textView10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/week_day_fr"
+                    android:gravity="center" />
+
+                <TextView
+                    android:id="@+id/textView11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/week_day_sa"
+                    android:gravity="center" />
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerViewCalendar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/linearLayout" />
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

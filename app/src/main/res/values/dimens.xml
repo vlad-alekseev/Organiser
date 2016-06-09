@@ -1,0 +1,25 @@
+<resources>
+
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <dimen name="standardAppCornerRadius">3dip</dimen>
+    <dimen name="standardIndent">20dp</dimen>
+    <dimen name="heightAlarmMessageView">200dp</dimen>
+    <dimen name="headLineSize">25sp</dimen>
+    <dimen name="middleTextSize">20sp</dimen>
+    <dimen name="smallTextSize">13sp</dimen>
+    <dimen name="marginTabBottom">1dp</dimen>
+    <dimen name="heightAdapterCalendarDay">60dp</dimen>
+    <dimen name="widthAdapterForecastFromDay">60dp</dimen>
+    <dimen name="heightForecastTodayIcon">100dp</dimen>
+    <dimen name="widthForecastTodayIcon">100dp</dimen>
+    <dimen name="iconForecastFromTimeWidth">30dp</dimen>
+    <dimen name="iconForecastFromTimeHeight">30dp</dimen>
+    <dimen name="iconForecastFromDayWidth">50dp</dimen>
+    <dimen name="iconForecastFromDayHeight">50dp</dimen>
+    <dimen name="calendarHeadLinePadding">5dp</dimen>
+    <dimen name="nextAndPrevMonthIconPadding">15dp</dimen>
+    <dimen name="standardMiddlePadding">5dp</dimen>
+    <dimen name="spinnerWidth">150dp</dimen>
+</resources>

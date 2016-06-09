@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.organiser">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+    <application
+        android:name="com.organiser.App"
+        android:allowBackup="true"
+        android:icon="@mipmap/icon_app"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+
+        <meta-data
+            android:name="AA_DB_NAME"
+            android:value="database.db" />
+        <meta-data
+            android:name="AA_DB_VERSION"
+            android:value="1" />
+
+        <meta-data
+            android:name="AA_MODELS"
+            android:value="com.organiser.model.ForecastItems, com.organiser.model.CalendarItems" />
+
+        <activity
+            android:name="com.organiser.activity.MainActivity"
+            android:configChanges="orientation|screenSize"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name="com.organiser.activity.AlarmActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
+
+        <receiver
+            android:name="com.organiser.receiver.AlarmReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter android:priority="500">
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+        <receiver
+            android:name="com.organiser.receiver.AutoStart"
+            android:enabled="true"
+            android:exported="true" >
+            <intent-filter android:priority="500" >
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+
+    </application>
+
+</manifest>

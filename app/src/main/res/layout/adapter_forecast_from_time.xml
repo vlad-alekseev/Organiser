@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/forecastFromTimeItem"
+        android:layout_width="@dimen/widthAdapterForecastFromDay"
+        android:layout_height="wrap_content"
+        android:theme="@style/ForecastTheme">
+
+        <TextView
+            android:id="@+id/textTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/textDate"
+            android:layout_alignStart="@+id/textDate"
+            android:layout_below="@+id/textDate"
+            android:text="09:00"
+            android:textColor="@color/colorWhite" />
+
+        <ImageButton
+            android:id="@+id/imageWeather"
+            android:layout_width="@dimen/iconForecastFromTimeWidth"
+            android:layout_height="@dimen/iconForecastFromTimeHeight"
+            android:layout_below="@+id/textTime"
+            android:layout_centerHorizontal="true"
+            android:background="@color/colorTransparent"
+            android:contentDescription="@string/icon_forecast" />
+
+        <TextView
+            android:id="@+id/temperature"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="false"
+            android:layout_below="@+id/imageWeather"
+            android:layout_centerHorizontal="true"
+            android:text="-15º"
+            android:textColor="@color/colorWhite"
+            android:textSize="17dp" />
+
+        <TextView
+            android:id="@+id/textDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:text="28.05"
+            android:textColor="@color/colorGray300"
+            android:textSize="@dimen/smallTextSize" />
+
+    </RelativeLayout>
+</LinearLayout>

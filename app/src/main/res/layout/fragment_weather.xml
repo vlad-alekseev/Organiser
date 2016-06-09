@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/materialDesignDarkBlue">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:id="@+id/relativeLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:background="@color/materialDesignBlue"
+                android:padding="10dp">
+
+                <TextView
+                    android:id="@+id/current_city"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/headLineSize" />
+
+                <ImageView
+                    android:id="@+id/weather_ic"
+                    android:layout_width="@dimen/widthForecastTodayIcon"
+                    android:layout_height="@dimen/widthForecastTodayIcon"
+                    android:layout_alignLeft="@+id/current_city"
+                    android:layout_alignStart="@+id/current_city"
+                    android:layout_below="@+id/current_city"
+                    android:background="@mipmap/w01d" />
+
+                <RelativeLayout
+                    android:id="@+id/relativeLayout2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/weather_ic"
+                    android:layout_toEndOf="@+id/weather_ic"
+                    android:layout_toRightOf="@+id/weather_ic"
+                    android:paddingLeft="15dp"
+                    android:theme="@style/ForecastTheme">
+
+                    <TextView
+                        android:id="@+id/degreeNumber"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:text="00"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textSize="40sp" />
+
+                    <TextView
+                        android:id="@+id/textView3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_toEndOf="@+id/degreeNumber"
+                        android:layout_toRightOf="@+id/degreeNumber"
+                        android:text="ºC"
+                        android:textSize="40sp" />
+
+                    <TextView
+                        android:id="@+id/weatherParameter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@+id/textView4"
+                        android:layout_toEndOf="@+id/textView4"
+                        android:layout_toRightOf="@+id/textView4"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/weatherParameter"
+                        android:text="@string/wind_speed"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/windSpeed"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignTop="@+id/textView"
+                        android:layout_toEndOf="@+id/textView"
+                        android:layout_toRightOf="@+id/textView"
+                        android:text="0"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/textView4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignLeft="@+id/textView"
+                        android:layout_alignStart="@+id/textView"
+                        android:layout_below="@+id/degreeNumber"
+                        android:text="@string/sky"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/textView5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignTop="@+id/windSpeed"
+                        android:layout_toEndOf="@+id/windSpeed"
+                        android:layout_toRightOf="@+id/windSpeed"
+                        android:text="@string/m_s"
+                        android:textSize="15sp" />
+
+                </RelativeLayout>
+
+                <ImageButton
+                    android:id="@+id/locationButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:background="@android:color/transparent"
+                    android:src="@mipmap/ic_action_place" />
+
+                <ImageButton
+                    android:id="@+id/refreshButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@+id/locationButton"
+                    android:layout_marginTop="10dp"
+                    android:background="@android:color/transparent"
+                    android:src="@mipmap/ic_change" />
+
+            </RelativeLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerForecastFromTime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/relativeLayout"
+                android:background="@color/materialDesignDarkBlue"
+                android:padding="10dp"
+                android:scrollbars="horizontal" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerForecastFromDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/recyclerForecastFromTime"
+                android:background="@color/materialDesignBlue"/>
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/loadingView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorHalfTransparent">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:indeterminate="true" />
+    </RelativeLayout>
+
+</RelativeLayout>

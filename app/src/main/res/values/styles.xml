@@ -1,0 +1,21 @@
+<resources>
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/material_deep_teal_500</item>
+        <item name="colorPrimaryDark">#FF00877A</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="ForecastTheme">
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:shadowColor">@color/brownTextShadow</item>
+        <item name="android:shadowDx">2</item>
+        <item name="android:shadowDy">2</item>
+        <item name="android:shadowRadius">2</item>
+    </style>
+
+    <style name="WhiteTextColor">
+        <item name="android:textColor">@color/colorWhite</item>
+    </style>
+
+</resources>
