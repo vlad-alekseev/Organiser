@@ -5,7 +5,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.organiser.Constants;
 import com.organiser.R;
+import com.organiser.data.TimeConverter;
 import com.organiser.model.CalendarItem;
 import com.organiser.adapter.viewHolder.CalendarDayViewHolder;
 
@@ -17,7 +19,7 @@ public class CalendarDayAdapter extends RecyclerView.Adapter<CalendarDayViewHold
 
     private View mView;
     private String mMonthAndYear;
-    private int mTodayNumber, mCurrentMonth;
+    private int mTodayNumber, mCurrentMonth, mSelectedMonth;
     private List<CalendarItem> mListCalendarDay;
     private IItemEventListener mEventListener;
 
@@ -34,6 +36,7 @@ public class CalendarDayAdapter extends RecyclerView.Adapter<CalendarDayViewHold
         mListCalendarDay = listCalendarDay;
         mTodayNumber = todayNumber;
         mCurrentMonth = Calendar.getInstance().get(Calendar.MONTH) + 1;
+        mSelectedMonth = Integer.valueOf(TimeConverter.convertDate(monthAndYear, Constants.FORMAT_LLLL_yyyy, "MM"));
     }
 
     @Override
@@ -56,7 +59,7 @@ public class CalendarDayAdapter extends RecyclerView.Adapter<CalendarDayViewHold
 
             // set color background for current day
             if (calendarItem.getNumOfDay() == mTodayNumber) {
-                if (calendarItem.getNumOfMonth() == mCurrentMonth) {
+                if (mSelectedMonth == mCurrentMonth) {
                     holder.calendarDay.setBackgroundResource(R.drawable.rectangle_rounded_all_orange);
                     holder.calendarDay.setTextColor(mView.getResources().getColor(R.color.colorWhite));
                 } else {
