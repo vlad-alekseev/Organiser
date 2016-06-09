@@ -29,9 +29,9 @@
     <string name="your_message">Your message</string>
     <string name="save">save</string>
     <string name="delete_reminder">delete reminder</string>
-    <string name="wind_speed">Wind speed:</string>
+    <string name="wind_speed">Wind speed: </string>
     <string name="sky">Sky:</string>
-    <string name="m_s">m/s</string>
+    <string name="m_s"> m/s</string>
 
     <string-array name="reminderType">
         <item>Shopping</item>

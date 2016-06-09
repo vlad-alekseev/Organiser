@@ -17,14 +17,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        setListenersOnButton();
+        setListenersOnButtons();
         // set default fragment in container
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.custom_fragment, new CalendarFragment()).commit();
     }
 
 
-    private void setListenersOnButton() {
+    private void setListenersOnButtons() {
         Button calendarButton = (Button) findViewById(R.id.buttonCalendar);
         Button forecastButton = (Button) findViewById(R.id.buttonForecast);
         if (calendarButton != null) {

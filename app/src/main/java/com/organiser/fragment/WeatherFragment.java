@@ -262,7 +262,7 @@ public class WeatherFragment extends Fragment {
 
             alert.setNegativeButton(R.string.cancel, null);
             alert.show();
-           }
+        }
     };
 
     View.OnClickListener refreshButtonListener = new View.OnClickListener() {

@@ -38,7 +38,6 @@ public class RemainderFragment extends Fragment {
     private View mView;
     private Spinner mSpinner;
     private TextView mViewDate;
-    private AlarmReceiver alarm;
     private CalendarItems mOneDay;
     private EditText mTextMessage;
     private TextView mTimeReminder;
@@ -69,11 +68,10 @@ public class RemainderFragment extends Fragment {
         mDeleteButton = (Button) mView.findViewById(R.id.deleteCalendarItemButton);
         mTextMessage = (EditText) mView.findViewById(R.id.textMessage);
         mTimeReminder = (TextView) mView.findViewById(R.id.timeReminder);
-        mSwitchAlarm = (SwitchCompat)mView.findViewById(R.id.switch_compat);
+        mSwitchAlarm = (SwitchCompat) mView.findViewById(R.id.switch_compat);
     }
 
     private void setDefault(String currentDate) {
-        alarm = new AlarmReceiver();
         mViewDate.setText(currentDate);
         mOneDay = getCalendarItem(currentDate);
         mTimeReminder.setText(mTimeFormat.format(mCalendar.getTime()));
@@ -130,7 +128,7 @@ public class RemainderFragment extends Fragment {
                 // Does not give the opportunity to set reminder in past tense
                 long timeInMilliseconds = getTimeInMillis();
                 if (timeInMilliseconds > System.currentTimeMillis()) {
-                    alarm.setOnetimeTimer(getActivity().getApplicationContext(), timeInMilliseconds);
+                    new AlarmReceiver().setOnetimeTimer(getActivity().getApplicationContext(), timeInMilliseconds);
                 } else {
                     Toast.makeText(mView.getContext(), "Alarm clock can not be turned on last time", Toast.LENGTH_LONG).show();
                     mSwitchAlarm.setChecked(false);

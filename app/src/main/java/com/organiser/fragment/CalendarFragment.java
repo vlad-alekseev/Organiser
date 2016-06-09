@@ -78,7 +78,7 @@ public class CalendarFragment extends Fragment {
         // In order to the first day of the month corresponds to the correct day of the week
         int minusDays = (calendar.get(Calendar.DAY_OF_WEEK) - 2) * (-1);
 
-        for (int i = minusDays; i <= calendar.getActualMaximum(Calendar.DAY_OF_MONTH); i++){
+        for (int i = minusDays; i <= calendar.getActualMaximum(Calendar.DAY_OF_MONTH); i++) {
             oneDay = new CalendarItems().getItemFromDate(year, month, i);
             if (oneDay == null) {
                 oneDay = new CalendarItems();
