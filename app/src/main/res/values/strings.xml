@@ -32,6 +32,7 @@
     <string name="wind_speed">Wind speed: </string>
     <string name="sky">Sky:</string>
     <string name="m_s"> m/s</string>
+    <string name="alarm_clock_not_included">Alarm clock can not be turned on last time</string>
 
     <string-array name="reminderType">
         <item>Shopping</item>

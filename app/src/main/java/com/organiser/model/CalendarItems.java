@@ -32,6 +32,17 @@ public class CalendarItems extends Model {
     @Column(name = "isSetAlarm")
     private boolean isSetAlarm;
 
+    @Column(name = "timeInMillis")
+    private long timeInMillis;
+
+    public long getTimeInMillis(){
+        return this.timeInMillis;
+    }
+
+    public void setTimeInMillis(long millis){
+        this.timeInMillis = millis;
+    }
+
     public boolean getIsSetAlarm(){
         return this.isSetAlarm;
     }
@@ -108,6 +119,12 @@ public class CalendarItems extends Model {
         return new Select()
                 .from(CalendarItems.class)
                 .where("numOfYear = '" + year+ "' AND numOfMonth = '" + month + "'")
+                .execute();
+    }
+
+    public List<CalendarItems> getAllItems(){
+        return new Select()
+                .from(CalendarItems.class)
                 .execute();
     }
 }
