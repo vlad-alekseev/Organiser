@@ -1,19 +1,15 @@
 package com.organiser.adapter;
 
-import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.organiser.Constants;
 import com.organiser.R;
-import com.organiser.fragment.RemainderFragment;
 import com.organiser.model.CalendarItem;
 import com.organiser.adapter.viewHolder.CalendarDayViewHolder;
 
+import java.util.Calendar;
 import java.util.List;
 
 
@@ -21,14 +17,23 @@ public class CalendarDayAdapter extends RecyclerView.Adapter<CalendarDayViewHold
 
     private View mView;
     private String mMonthAndYear;
-    private int mTodayNumber;
+    private int mTodayNumber, mCurrentMonth;
     private List<CalendarItem> mListCalendarDay;
+    private IItemEventListener mEventListener;
 
+    public interface IItemEventListener {
+        void onDayItemClick(String date);
+    }
+
+    public void setEventClickListener(IItemEventListener listener) {
+        mEventListener = listener;
+    }
 
     public CalendarDayAdapter(List<CalendarItem> listCalendarDay, String monthAndYear, int todayNumber) {
         mMonthAndYear = monthAndYear;
         mListCalendarDay = listCalendarDay;
         mTodayNumber = todayNumber;
+        mCurrentMonth = Calendar.getInstance().get(Calendar.MONTH) + 1;
     }
 
     @Override
@@ -51,27 +56,19 @@ public class CalendarDayAdapter extends RecyclerView.Adapter<CalendarDayViewHold
 
             // set color background for current day
             if (calendarItem.getNumOfDay() == mTodayNumber) {
-                holder.calendarDay.setBackgroundColor(mView.getResources().getColor(R.color.materialDesignOrange));
-                holder.calendarDay.setTextColor(mView.getResources().getColor(R.color.colorWhite));
+                if (calendarItem.getNumOfMonth() == mCurrentMonth) {
+                    holder.calendarDay.setBackgroundResource(R.drawable.rectangle_rounded_all_orange);
+                    holder.calendarDay.setTextColor(mView.getResources().getColor(R.color.colorWhite));
+                } else {
+                    holder.calendarDay.setBackgroundResource(R.drawable.shape_border_orange);
+                }
             }
 
             holder.body.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     String selectedDate = String.valueOf(holder.calendarDay.getText()) + " " + mMonthAndYear;
-                    Bundle bundles = new Bundle();
-                    bundles.putString(Constants.KEY_CURRENT_DATE, selectedDate);
-
-                    RemainderFragment fragment = new RemainderFragment();
-                    fragment.setArguments(bundles);
-
-                    ((FragmentActivity) mView.getContext())
-                            .getSupportFragmentManager()
-                            .beginTransaction()
-                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                            .replace(R.id.custom_fragment, fragment)
-                            .addToBackStack(null)
-                            .commit();
+                    mEventListener.onDayItemClick(selectedDate);
                 }
             });
         }

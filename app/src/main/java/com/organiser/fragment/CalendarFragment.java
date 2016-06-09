@@ -5,6 +5,8 @@ import android.support.v4.app.Fragment;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -100,6 +102,30 @@ public class CalendarFragment extends Fragment {
         RecyclerView.ItemAnimator itemAnimator = new DefaultItemAnimator();
         mRecyclerViewCalendarDay.setItemAnimator(itemAnimator);
         mRecyclerViewCalendarDay.setAdapter(mDayAdapter);
+
+        mDayAdapter.setEventClickListener(new CalendarDayAdapter.IItemEventListener() {
+            @Override
+            public void onDayItemClick(String date) {
+                openReminderFragment(date);
+            }
+
+        });
+    }
+
+    private void openReminderFragment(String date) {
+        Bundle bundles = new Bundle();
+        bundles.putString(Constants.KEY_CURRENT_DATE, date);
+
+        RemainderFragment fragment = new RemainderFragment();
+        fragment.setArguments(bundles);
+
+        ((FragmentActivity) mView.getContext())
+                .getSupportFragmentManager()
+                .beginTransaction()
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                .replace(R.id.custom_fragment, fragment)
+                .addToBackStack(null)
+                .commit();
     }
 
     View.OnClickListener onButtonPrevMonthClick = new View.OnClickListener() {
