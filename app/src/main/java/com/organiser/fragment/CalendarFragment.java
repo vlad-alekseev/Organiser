@@ -15,9 +15,9 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.organiser.Constants;
-import com.organiser.TimeConverter;
+import com.organiser.data.TimeConverter;
 import com.organiser.adapter.CalendarDayAdapter;
-import com.organiser.model.CalendarItems;
+import com.organiser.model.CalendarItem;
 import com.organiser.R;
 
 import java.text.SimpleDateFormat;
@@ -63,7 +63,7 @@ public class CalendarFragment extends Fragment {
         mPrevMonth.setOnClickListener(onButtonPrevMonthClick);
     }
 
-    private List<CalendarItems> getCalendarItems() {
+    private List<CalendarItem> getCalendarItems() {
         int month = Integer.valueOf(TimeConverter.convertDate(
                 mCurrentMonthAndYear.getText().toString(), Constants.FORMAT_LLLL_yyyy, "MM"));
         int year = Integer.valueOf(TimeConverter.convertDate(
@@ -71,17 +71,17 @@ public class CalendarFragment extends Fragment {
 
         Calendar calendar = TimeConverter.getCalendarFromMonthAndYear(mCurrentMonthAndYear.getText().toString());
 
-        List<CalendarItems> listCalendarDay = new ArrayList<>();
-        CalendarItems oneDay = null;
+        List<CalendarItem> listCalendarDay = new ArrayList<>();
+        CalendarItem oneDay = null;
 
         // Counts the number of days last month in the first week.
         // In order to the first day of the month corresponds to the correct day of the week
         int minusDays = (calendar.get(Calendar.DAY_OF_WEEK) - 2) * (-1);
 
         for (int i = minusDays; i <= calendar.getActualMaximum(Calendar.DAY_OF_MONTH); i++) {
-            oneDay = new CalendarItems().getItemFromDate(year, month, i);
+            oneDay = new CalendarItem().getItemFromDate(year, month, i);
             if (oneDay == null) {
-                oneDay = new CalendarItems();
+                oneDay = new CalendarItem();
                 oneDay.setNumOfDay(i);
             }
             listCalendarDay.add(oneDay);
@@ -89,7 +89,7 @@ public class CalendarFragment extends Fragment {
         return listCalendarDay;
     }
 
-    private void setAdapterFromDate(List<CalendarItems> listCalendarDay) {
+    private void setAdapterFromDate(List<CalendarItem> listCalendarDay) {
         CalendarDayAdapter mDayAdapter = new CalendarDayAdapter(
                 listCalendarDay, mCurrentMonthAndYear.getText().toString(),
                 Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
@@ -107,7 +107,7 @@ public class CalendarFragment extends Fragment {
         public void onClick(View v) {
             String currDate = mCurrentMonthAndYear.getText().toString();
             mCurrentMonthAndYear.setText(TimeConverter.changeMonth(currDate, Constants.MONTH_MINUS));
-            List<CalendarItems> listCalendarDay = getCalendarItems();
+            List<CalendarItem> listCalendarDay = getCalendarItems();
             setAdapterFromDate(listCalendarDay);
         }
     };
@@ -117,7 +117,7 @@ public class CalendarFragment extends Fragment {
         public void onClick(View v) {
             String currDate = mCurrentMonthAndYear.getText().toString();
             mCurrentMonthAndYear.setText(TimeConverter.changeMonth(currDate, Constants.MONTH_PLUS));
-            List<CalendarItems> listCalendarDay = getCalendarItems();
+            List<CalendarItem> listCalendarDay = getCalendarItems();
             setAdapterFromDate(listCalendarDay);
         }
     };

@@ -1,6 +1,7 @@
-package com.organiser.data;
+package com.organiser.data.apiImplementation;
 
 import com.organiser.Constants;
+import com.organiser.data.ForecastWeatherApi;
 
 import java.io.IOException;
 
@@ -10,7 +11,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-public class ApiImpl {
+public class ApiImplForecast {
 
     public interface ICurrencyListener {
         void onSuccess(String jsonString);
@@ -22,7 +23,7 @@ public class ApiImpl {
             .baseUrl(Constants.BASE_URL_OPEN_WEATHER_MAP)
             .build();
 
-    public ApiImpl() {
+    public ApiImplForecast() {
 
     }
 

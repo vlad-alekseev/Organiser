@@ -10,7 +10,7 @@ import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.organiser.R;
-import com.organiser.model.CalendarItems;
+import com.organiser.model.CalendarItem;
 
 import java.util.Calendar;
 
@@ -24,19 +24,19 @@ public class AlarmActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alarm);
 
-        CalendarItems todayItem = getTodayCalendarItem();
-        setValues(todayItem);
+        CalendarItem todayItem = getTodayCalendarItem();
+        fillViews(todayItem);
       }
 
-    private CalendarItems getTodayCalendarItem() {
+    private CalendarItem getTodayCalendarItem() {
         Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH) + 1;
         int day = calendar.get(Calendar.DAY_OF_MONTH);
-        return new CalendarItems().getItemFromDate(year, month, day);
+        return new CalendarItem().getItemFromDate(year, month, day);
     }
 
-    private void setValues(CalendarItems todayItem){
+    private void fillViews(CalendarItem todayItem){
         findViewById(R.id.buttonClose).setOnClickListener(closeAlarmClick);
         findViewById(R.id.stopAlarm).setOnClickListener(stopAlarmClick);
         ((TextView) findViewById(R.id.idMessage)).setText(todayItem.getMessage());

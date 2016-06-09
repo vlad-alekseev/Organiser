@@ -1,6 +1,6 @@
-package com.organiser.data;
+package com.organiser.data.parser;
 
-import com.organiser.model.ForecastItems;
+import com.organiser.model.ForecastItem;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -12,7 +12,7 @@ import java.util.List;
 public class CurrencyApiParser {
 
     private String mApi;
-    private List<ForecastItems> mForecastItemList = new ArrayList<>();
+    private List<ForecastItem> mForecastItemList = new ArrayList<>();
 
 
     public CurrencyApiParser(String api) {
@@ -28,17 +28,17 @@ public class CurrencyApiParser {
             JSONArray jsonList = jsonObject.getJSONArray("list");
             for (int i = 0; i < jsonList.length(); i++) {
                 JSONObject newObject = new JSONObject(jsonList.get(i).toString());
-                ForecastItems forecastItems = new ForecastItems();
-                forecastItems.setCityName(city);
-                forecastItems.setTimeMilliseconds(getTimeMilliseconds(newObject));
-                forecastItems.setTempCurrent(getMainInfo("temp", newObject));
-                forecastItems.setTempMin(getMainInfo("temp_min", newObject));
-                forecastItems.setTempMax(getMainInfo("temp_max", newObject));
-                forecastItems.setWeatherParameters(getWeatherInfo("description", newObject));
-                forecastItems.setWeatherIconId(getWeatherInfo("icon", newObject));
-                forecastItems.setWindSpeed(getWindInfo("speed", newObject));
-                forecastItems.setDateTime(getDataTime(newObject));
-                mForecastItemList.add(forecastItems);
+                ForecastItem forecastItem = new ForecastItem();
+                forecastItem.setCityName(city);
+                forecastItem.setTimeMilliseconds(getTimeMilliseconds(newObject));
+                forecastItem.setTempCurrent(getMainInfo("temp", newObject));
+                forecastItem.setTempMin(getMainInfo("temp_min", newObject));
+                forecastItem.setTempMax(getMainInfo("temp_max", newObject));
+                forecastItem.setWeatherParameters(getWeatherInfo("description", newObject));
+                forecastItem.setWeatherIconId(getWeatherInfo("icon", newObject));
+                forecastItem.setWindSpeed(getWindInfo("speed", newObject));
+                forecastItem.setDateTime(getDataTime(newObject));
+                mForecastItemList.add(forecastItem);
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -75,7 +75,7 @@ public class CurrencyApiParser {
         return tempObject.getDouble(temperature);
     }
 
-    public List<ForecastItems> getForecastItemList() {
+    public List<ForecastItem> getForecastItemList() {
         return mForecastItemList;
     }
 

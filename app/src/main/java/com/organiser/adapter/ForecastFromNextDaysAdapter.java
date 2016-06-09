@@ -8,8 +8,8 @@ import android.view.ViewGroup;
 
 import com.organiser.Constants;
 import com.organiser.R;
-import com.organiser.TimeConverter;
-import com.organiser.model.ForecastItems;
+import com.organiser.data.TimeConverter;
+import com.organiser.model.ForecastItem;
 import com.organiser.adapter.viewHolder.ForecastFromDayViewHolder;
 
 import java.util.ArrayList;
@@ -18,9 +18,9 @@ import java.util.List;
 public class ForecastFromNextDaysAdapter extends RecyclerView.Adapter<ForecastFromDayViewHolder> {
 
     private View mView;
-    private List<ForecastItems> mForecastItems = new ArrayList<>();
+    private List<ForecastItem> mForecastItems = new ArrayList<>();
 
-    public ForecastFromNextDaysAdapter(List<ForecastItems> items) {
+    public ForecastFromNextDaysAdapter(List<ForecastItem> items) {
         mForecastItems = items;
     }
 
@@ -34,7 +34,7 @@ public class ForecastFromNextDaysAdapter extends RecyclerView.Adapter<ForecastFr
     @Override
     public void onBindViewHolder(ForecastFromDayViewHolder viewHolder, int position) {
 
-        ForecastItems newForecast = mForecastItems.get(position);
+        ForecastItem newForecast = mForecastItems.get(position);
         String imageName = "w" + newForecast.getWeatherIconId();
         int resID = mView.getResources().getIdentifier(imageName, "mipmap", mView.getContext().getPackageName());
 

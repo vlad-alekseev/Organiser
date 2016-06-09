@@ -1,7 +1,9 @@
-package com.organiser;
+package com.organiser.data;
 
 
 import android.text.format.DateFormat;
+
+import com.organiser.Constants;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

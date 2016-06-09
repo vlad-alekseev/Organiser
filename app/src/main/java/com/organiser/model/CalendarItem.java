@@ -9,7 +9,7 @@ import com.activeandroid.query.Select;
 import java.util.List;
 
 @Table(name = "CalendarItem")
-public class CalendarItems extends Model {
+public class CalendarItem extends Model {
 
     @Column(name = "message")
     private String message;
@@ -99,32 +99,32 @@ public class CalendarItems extends Model {
         this.reminderType = reminderType;
     }
 
-    public CalendarItems(){
+    public CalendarItem(){
 
     }
 
-    public CalendarItems(int numOfDay, String message){
+    public CalendarItem(int numOfDay, String message){
         this.message = message;
         this.numOfDay = numOfDay;
     }
 
-    public CalendarItems getItemFromDate(int year, int month, int day){
-        return (CalendarItems) new Select()
-                .from(CalendarItems.class)
+    public CalendarItem getItemFromDate(int year, int month, int day){
+        return (CalendarItem) new Select()
+                .from(CalendarItem.class)
                 .where("numOfYear = '" + year + "' AND numOfMonth = '" + month + "' AND numOfDay = '" + day + "'")
                 .executeSingle();
     }
 
-    public List<CalendarItems> getItemsFromMonth(int year, int month){
+    public List<CalendarItem> getItemsFromMonth(int year, int month){
         return new Select()
-                .from(CalendarItems.class)
+                .from(CalendarItem.class)
                 .where("numOfYear = '" + year+ "' AND numOfMonth = '" + month + "'")
                 .execute();
     }
 
-    public List<CalendarItems> getAllItems(){
+    public List<CalendarItem> getAllItems(){
         return new Select()
-                .from(CalendarItems.class)
+                .from(CalendarItem.class)
                 .execute();
     }
 }

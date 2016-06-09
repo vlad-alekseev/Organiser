@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import com.organiser.Constants;
 import com.organiser.R;
 import com.organiser.fragment.RemainderFragment;
-import com.organiser.model.CalendarItems;
+import com.organiser.model.CalendarItem;
 import com.organiser.adapter.viewHolder.CalendarDayViewHolder;
 
 import java.util.List;
@@ -22,10 +22,10 @@ public class CalendarDayAdapter extends RecyclerView.Adapter<CalendarDayViewHold
     private View mView;
     private String mMonthAndYear;
     private int mTodayNumber;
-    private List<CalendarItems> mListCalendarDay;
+    private List<CalendarItem> mListCalendarDay;
 
 
-    public CalendarDayAdapter(List<CalendarItems> listCalendarDay, String monthAndYear, int todayNumber) {
+    public CalendarDayAdapter(List<CalendarItem> listCalendarDay, String monthAndYear, int todayNumber) {
         mMonthAndYear = monthAndYear;
         mListCalendarDay = listCalendarDay;
         mTodayNumber = todayNumber;
@@ -40,17 +40,17 @@ public class CalendarDayAdapter extends RecyclerView.Adapter<CalendarDayViewHold
     @Override
     public void onBindViewHolder(final CalendarDayViewHolder holder, final int position) {
 
-        CalendarItems calendarItems = mListCalendarDay.get(position);
+        CalendarItem calendarItem = mListCalendarDay.get(position);
         // set value only current month
-        if (calendarItems.getNumOfDay() > 0) {
+        if (calendarItem.getNumOfDay() > 0) {
 
-            if (calendarItems.getMessage() != null)
+            if (calendarItem.getMessage() != null)
                 holder.messageButton.setImageResource(R.mipmap.ic_message);
 
-            holder.calendarDay.setText(String.valueOf(calendarItems.getNumOfDay()));
+            holder.calendarDay.setText(String.valueOf(calendarItem.getNumOfDay()));
 
             // set color background for current day
-            if (calendarItems.getNumOfDay() == mTodayNumber) {
+            if (calendarItem.getNumOfDay() == mTodayNumber) {
                 holder.calendarDay.setBackgroundColor(mView.getResources().getColor(R.color.materialDesignOrange));
                 holder.calendarDay.setTextColor(mView.getResources().getColor(R.color.colorWhite));
             }
@@ -58,9 +58,9 @@ public class CalendarDayAdapter extends RecyclerView.Adapter<CalendarDayViewHold
             holder.body.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    String changeDate = String.valueOf(holder.calendarDay.getText()) + " " + mMonthAndYear;
+                    String selectedDate = String.valueOf(holder.calendarDay.getText()) + " " + mMonthAndYear;
                     Bundle bundles = new Bundle();
-                    bundles.putString(Constants.KEY_CURRENT_DATE, changeDate);
+                    bundles.putString(Constants.KEY_CURRENT_DATE, selectedDate);
 
                     RemainderFragment fragment = new RemainderFragment();
                     fragment.setArguments(bundles);

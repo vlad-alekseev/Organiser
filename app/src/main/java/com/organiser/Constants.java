@@ -12,16 +12,13 @@ public class Constants {
     public static String FORMAT_YYYY_MM_DD_HH_MM_SS = "yyyy-MM-dd HH:mm:ss";
     public static String TIME_FORMAT = "HH:mm";
 
-    public static String TAG_FIRST_TAB = "tab1";
-    public static String TAG_SECOND_TAB = "tab2";
-
     public static String KEY_CURRENT_DATE = "currentDate";
-
     public static String PREFERENCES = "memCash";
 
     public static String MONTH_PLUS = "plus";
     public static String MONTH_MINUS = "minus";
 
+    public static String ONCE_ALARM = "onceAlarm";
     public static String PREFERENCES_FORECAST = "memCashForecast";
     public static String PREFERENCES_CITY_NAME = "cityName";
 

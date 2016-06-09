@@ -21,10 +21,10 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.organiser.Constants;
-import com.organiser.TimeConverter;
-import com.organiser.model.CalendarItems;
-import com.organiser.receiver.AlarmReceiver;
+import com.organiser.data.TimeConverter;
+import com.organiser.model.CalendarItem;
 import com.organiser.R;
+import com.organiser.data.AlarmScheduleManager;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -38,7 +38,7 @@ public class RemainderFragment extends Fragment {
     private View mView;
     private Spinner mSpinner;
     private TextView mViewDate;
-    private CalendarItems mOneDay;
+    private CalendarItem mOneDay;
     private long mTimeInMillis;
     private EditText mTextMessage;
     private TextView mTimeReminder;
@@ -91,14 +91,14 @@ public class RemainderFragment extends Fragment {
 
     }
 
-    private void setDefaultValue(CalendarItems oneDay) {
+    private void setDefaultValue(CalendarItem oneDay) {
         mTextMessage.setText(oneDay.getMessage());
         String[] array = getResources().getStringArray(R.array.reminderType);
         mSpinner.setSelection(Arrays.asList(array).indexOf(oneDay.getReminderType()));
         mTimeReminder.setText(oneDay.getTime());
     }
 
-    private CalendarItems getCalendarItem(String currentDate) {
+    private CalendarItem getCalendarItem(String currentDate) {
         mMonth = Integer.valueOf(
                 TimeConverter.convertDate(currentDate, Constants.FORMAT_dd_LLLL_yyyy, "MM"));
         mYear = Integer.valueOf(
@@ -106,7 +106,7 @@ public class RemainderFragment extends Fragment {
         mDay = Integer.valueOf(
                 TimeConverter.convertDate(currentDate, Constants.FORMAT_dd_LLLL_yyyy, "dd"));
 
-        return new CalendarItems().getItemFromDate(mYear, mMonth, mDay);
+        return new CalendarItem().getItemFromDate(mYear, mMonth, mDay);
     }
 
     View.OnClickListener onButtonDeleteClick = new View.OnClickListener() {
@@ -129,7 +129,7 @@ public class RemainderFragment extends Fragment {
                 // Does not give the opportunity to set reminder in past tense
                 mTimeInMillis = getTimeInMillis();
                 if (mTimeInMillis > System.currentTimeMillis()) {
-                    new AlarmReceiver().setReminderAlarm(getActivity().getApplicationContext(), mTimeInMillis);
+                    AlarmScheduleManager.setReminderAlarm(getActivity().getApplicationContext(), mTimeInMillis);
                 } else {
                     Toast.makeText(mView.getContext(), R.string.alarm_clock_not_included, Toast.LENGTH_LONG).show();
                     mSwitchAlarm.setChecked(false);
@@ -190,17 +190,17 @@ public class RemainderFragment extends Fragment {
     };
 
     private void createNewCalendarItems() {
-        CalendarItems newCalendarItems = new CalendarItems();
-        newCalendarItems.setMessage(mTextMessage.getText().toString());
-        newCalendarItems.setNumOfYear(mYear);
-        newCalendarItems.setNumOfMonth(mMonth);
-        newCalendarItems.setNumOfDay(mDay);
-        newCalendarItems.setReminderType(mSpinner.getSelectedItem().toString());
-        newCalendarItems.setTime(mTimeReminder.getText().toString());
-        newCalendarItems.setTimeInMillis(mTimeInMillis);
+        CalendarItem newCalendarItem = new CalendarItem();
+        newCalendarItem.setMessage(mTextMessage.getText().toString());
+        newCalendarItem.setNumOfYear(mYear);
+        newCalendarItem.setNumOfMonth(mMonth);
+        newCalendarItem.setNumOfDay(mDay);
+        newCalendarItem.setReminderType(mSpinner.getSelectedItem().toString());
+        newCalendarItem.setTime(mTimeReminder.getText().toString());
+        newCalendarItem.setTimeInMillis(mTimeInMillis);
         if (mSwitchAlarm.isChecked()) {
-            newCalendarItems.setIsSetAlarm(true);
+            newCalendarItem.setIsSetAlarm(true);
         }
-        newCalendarItems.save();
+        newCalendarItem.save();
     }
 }

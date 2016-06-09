@@ -2,7 +2,7 @@ package com.organiser.model;
 
 import com.activeandroid.Model;
 
-public class ForecastItems extends Model {
+public class ForecastItem extends Model {
 
 
     private double tempCurrent;
@@ -88,12 +88,12 @@ public class ForecastItems extends Model {
         this.windSpeed = windSpeed;
     }
 
-    public ForecastItems(){
+    public ForecastItem(){
         super();
     }
 
-    public ForecastItems(Long timeMilliseconds, String dateTime, double tempCurrent, double tempMin, double tempMax,
-                         String weatherParameters, String weatherIconId, double windSpeed) {
+    public ForecastItem(Long timeMilliseconds, String dateTime, double tempCurrent, double tempMin, double tempMax,
+                        String weatherParameters, String weatherIconId, double windSpeed) {
         super();
         this.dateTime = dateTime;
         this.tempCurrent = tempCurrent;

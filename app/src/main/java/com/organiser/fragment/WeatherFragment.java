@@ -26,11 +26,11 @@ import android.widget.Toast;
 
 import com.organiser.Constants;
 import com.organiser.adapter.ForecastFromNextDaysAdapter;
-import com.organiser.model.ForecastItems;
+import com.organiser.model.ForecastItem;
 import com.organiser.R;
 import com.organiser.adapter.ForecastFromTimeAdapter;
-import com.organiser.data.ApiImpl;
-import com.organiser.data.CurrencyApiParser;
+import com.organiser.data.apiImplementation.ApiImplForecast;
+import com.organiser.data.parser.CurrencyApiParser;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -43,7 +43,7 @@ import java.util.concurrent.TimeUnit;
 public class WeatherFragment extends Fragment {
 
     private View mView;
-    private ApiImpl mApi;
+    private ApiImplForecast mApi;
     private long oneDayInMillis;
     private ImageView mWeatherIcon;
     private SharedPreferences mCash;
@@ -54,7 +54,7 @@ public class WeatherFragment extends Fragment {
     private ImageButton mLocationButton, mRefreshButton;
     private RecyclerView mRecyclerViewFromTime, mRecyclerViewFromDate;
     private String tempUnits = "metric", mJsonString = null, mCity = "kirovohrad";
-    private List<ForecastItems> mListForecastItems = new ArrayList<>();
+    private List<ForecastItem> mListForecastItems = new ArrayList<>();
     private TextView mTemperatureNow, mWeatherParameter, mWindSpeed, mCityNameView;
 
     @Nullable
@@ -96,7 +96,7 @@ public class WeatherFragment extends Fragment {
     }
 
     private void setDefault() {
-        mApi = new ApiImpl();
+        mApi = new ApiImplForecast();
         mRefreshButton.setOnClickListener(refreshButtonListener);
         mLocationButton.setOnClickListener(changeLocationListener);
         oneDayInMillis = TimeUnit.MILLISECONDS.convert(1, TimeUnit.DAYS) / 1000;
@@ -109,7 +109,7 @@ public class WeatherFragment extends Fragment {
     }
 
     private void getForecastAndSetInfo() {
-        mApi.getForecast(mCity, tempUnits, new ApiImpl.ICurrencyListener() {
+        mApi.getForecast(mCity, tempUnits, new ApiImplForecast.ICurrencyListener() {
             @Override
             public void onSuccess(String jsonString) {
                 setAllInfo(jsonString);
@@ -131,7 +131,7 @@ public class WeatherFragment extends Fragment {
         if (mListForecastItems.size() > 0) {
             setAdapterFromTime();
 
-            List<ForecastItems> fourDaysForecast = getForecastFromNextFourDays(mListForecastItems);
+            List<ForecastItem> fourDaysForecast = getForecastFromNextFourDays(mListForecastItems);
             setAdapterFromDate(fourDaysForecast);
             setTodayInfo();
 
@@ -146,7 +146,7 @@ public class WeatherFragment extends Fragment {
     }
 
     private void setTodayInfo() {
-        ForecastItems currentWeatherInfo = mListForecastItems.get(1);
+        ForecastItem currentWeatherInfo = mListForecastItems.get(1);
         mTemperatureNow.setText(String.valueOf((int) currentWeatherInfo.getTempCurrent()));
         mWeatherParameter.setText(currentWeatherInfo.getWeatherParameters());
         mWindSpeed.setText(String.valueOf(currentWeatherInfo.getWindSpeed()));
@@ -161,12 +161,12 @@ public class WeatherFragment extends Fragment {
         editor.apply();
     }
 
-    private List<ForecastItems> getForecastFromNextFourDays(List<ForecastItems> mListForecastItems) {
-        List<ForecastItems> res = new ArrayList<>();
+    private List<ForecastItem> getForecastFromNextFourDays(List<ForecastItem> mListForecastItems) {
+        List<ForecastItem> res = new ArrayList<>();
         int k = 0;
         long todayInMillis = Calendar.getInstance().getTimeInMillis() / 1000;
         for (int i = 0; i < 4; i++) {
-            ForecastItems newForecast = new ForecastItems();
+            ForecastItem newForecast = new ForecastItem();
 
             int minTemp = 100;
             int maxTemp = -100;
@@ -229,7 +229,7 @@ public class WeatherFragment extends Fragment {
         mRecyclerViewFromTime.setAdapter(mTimeAdapter);
     }
 
-    private void setAdapterFromDate(List<ForecastItems> listForecast) {
+    private void setAdapterFromDate(List<ForecastItem> listForecast) {
         mDayAdapter = new ForecastFromNextDaysAdapter(listForecast);
 
         lLayout = new GridLayoutManager(getActivity(), 4);
