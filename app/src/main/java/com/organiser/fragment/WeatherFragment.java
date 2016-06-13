@@ -232,7 +232,12 @@ public class WeatherFragment extends Fragment {
     private void setAdapterFromDate(List<ForecastItem> listForecast) {
         mDayAdapter = new ForecastFromNextDaysAdapter(listForecast);
 
-        lLayout = new GridLayoutManager(getActivity(), 4);
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+            lLayout = new GridLayoutManager(getActivity(), 4);
+        } else {
+            lLayout = new GridLayoutManager(getActivity(), 2);
+        }
+
         RecyclerView.ItemAnimator itemAnimator = new DefaultItemAnimator();
         mRecyclerViewFromDate.setHasFixedSize(true);
         mRecyclerViewFromDate.setLayoutManager(lLayout);

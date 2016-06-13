@@ -3,6 +3,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/loadingView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorHalfTransparent">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:indeterminate="true" />
+    </RelativeLayout>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -10,7 +24,8 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:id="@+id/relative">
 
             <RelativeLayout
                 android:id="@+id/relativeLayout"
@@ -148,40 +163,25 @@
                 android:id="@+id/recyclerForecastFromTime"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentStart="true"
-                android:layout_below="@+id/relativeLayout"
                 android:background="@color/materialDesignBlue"
                 android:padding="10dp"
-                android:scrollbars="horizontal" />
+                android:scrollbars="horizontal"
+                android:layout_below="@+id/recyclerForecastFromDate"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="@dimen/standardIndent" />
 
             <android.support.v7.widget.RecyclerView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/recyclerForecastFromDate"
                 android:layout_columnWeight="1"
                 android:layout_alignParentTop="true"
-                android:layout_toRightOf="@+id/relativeLayout"
-                android:layout_toEndOf="@+id/relativeLayout"/>
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
 
         </RelativeLayout>
 
     </ScrollView>
-
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/loadingView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/colorHalfTransparent">
-
-        <ProgressBar
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:indeterminate="true" />
-    </RelativeLayout>
 
 </RelativeLayout>
