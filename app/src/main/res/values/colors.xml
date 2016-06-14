@@ -9,6 +9,7 @@
     <color name="colorHalfTransparent">#c6ffffff</color>
     <color name="brownTextShadow">#666666</color>
     <color name="materialDesignGreen">#009587</color>
+    <color name="materialDesignLightGreen">#14b3a4</color>
     <color name="materialDesignOrange">#da4336</color>
     <color name="materialDarkOrange">#b3362b</color>
     <color name="materialDesignBlue">#0ca7d3</color>

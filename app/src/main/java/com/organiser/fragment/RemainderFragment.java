@@ -4,6 +4,9 @@ package com.organiser.fragment;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.TimePickerDialog;
+import android.content.Context;
+import android.graphics.Color;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.os.Build;
 import android.os.Bundle;
@@ -21,6 +24,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.organiser.Constants;
+import com.organiser.activity.MainActivity;
 import com.organiser.data.TimeConverter;
 import com.organiser.model.CalendarItem;
 import com.organiser.R;
@@ -52,6 +56,8 @@ public class RemainderFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mView = inflater.inflate(R.layout.fragment_reminder, container, false);
+        ((MainActivity) mView.getContext()).findViewById(R.id.tab_layout).setVisibility(View.GONE);
+
         setRetainInstance(true);
 
         Bundle bundle = getArguments();
@@ -60,6 +66,12 @@ public class RemainderFragment extends Fragment {
         setDefault(currentDate);
 
         return mView;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        ((MainActivity) mView.getContext()).findViewById(R.id.tab_layout).setClickable(true);
     }
 
     private void initViews() {

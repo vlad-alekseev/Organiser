@@ -1,11 +1,11 @@
 package com.organiser.activity;
 
-import android.support.v4.app.FragmentTransaction;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
 
+import com.organiser.ViewPagerAdapter;
 import com.organiser.fragment.WeatherFragment;
 import com.organiser.R;
 import com.organiser.fragment.CalendarFragment;
@@ -17,38 +17,18 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        setListenersOnButtons();
-        // set default fragment in container
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.custom_fragment, new CalendarFragment()).commit();
+        ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
+        setupViewPager(viewPager);
+
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
+        tabLayout.setupWithViewPager(viewPager);
     }
 
-
-    private void setListenersOnButtons() {
-        Button calendarButton = (Button) findViewById(R.id.buttonCalendar);
-        Button forecastButton = (Button) findViewById(R.id.buttonForecast);
-        if (calendarButton != null) {
-            calendarButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    getSupportFragmentManager().beginTransaction()
-                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                            .replace(R.id.custom_fragment, new CalendarFragment()).commit();
-                }
-            });
-        }
-
-        if (forecastButton != null) {
-            forecastButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    getSupportFragmentManager().beginTransaction()
-                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                            .replace(R.id.custom_fragment, new WeatherFragment()).commit();
-                }
-            });
-        }
-
+    private void setupViewPager(ViewPager viewPager) {
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        adapter.addFragment(new CalendarFragment(), getString(R.string.calendar));
+        adapter.addFragment(new WeatherFragment(), getString(R.string.forecast));
+        viewPager.setAdapter(adapter);
     }
 
 }

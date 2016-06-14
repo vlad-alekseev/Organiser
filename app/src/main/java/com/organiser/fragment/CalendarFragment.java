@@ -17,6 +17,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.organiser.Constants;
+import com.organiser.activity.MainActivity;
 import com.organiser.data.TimeConverter;
 import com.organiser.adapter.CalendarDayAdapter;
 import com.organiser.model.CalendarItem;
@@ -40,13 +41,21 @@ public class CalendarFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mView = inflater.inflate(R.layout.fragment_calendar, container, false);
+
+
+        return mView;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        ((MainActivity) mView.getContext()).findViewById(R.id.tab_layout).setVisibility(View.VISIBLE);
         setRetainInstance(true);
 
         initViews();
         setDefaultValue();
         setAdapterFromDate(getCalendarItems());
-
-        return mView;
     }
 
     private void initViews() {

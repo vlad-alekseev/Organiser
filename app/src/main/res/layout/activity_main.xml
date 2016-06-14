@@ -1,43 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:id="@+id/linearLayout2"
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tab_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginBottom="@dimen/marginTabBottom"
-        android:orientation="horizontal"
-        android:weightSum="2">
+        android:minHeight="?attr/actionBarSize"
+        app:tabBackground="@color/materialDesignGreen"
+        app:tabSelectedTextColor="@color/colorWhite"
+        app:tabTextColor="@color/materialDesignLightGreen"
+        app:tabIndicatorColor="@color/colorWhite"/>
 
-        <Button
-            android:id="@+id/buttonCalendar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@color/materialDesignOrange"
-            android:text="@string/calendar"
-            android:textColor="@color/colorWhite" />
+    <android.support.v4.view.ViewPager
+        android:id="@+id/pager"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/tab_layout" />
 
-        <Button
-            android:id="@+id/buttonForecast"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@color/materialDesignBlue"
-            android:text="@string/forecast"
-            android:textColor="@color/colorWhite" />
-    </LinearLayout>
-
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/custom_fragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/linearLayout2" />
+        android:layout_below="@+id/tab_layout"
+        android:orientation="horizontal" />
 
 </RelativeLayout>
