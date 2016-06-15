@@ -37,7 +37,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-public class RemainderFragment extends Fragment {
+public class RemainderFragment extends BaseTabFragment {
 
     private View mView;
     private Spinner mSpinner;
@@ -51,6 +51,7 @@ public class RemainderFragment extends Fragment {
     private Button mSaveButton, mDeleteButton;
     private Calendar mCalendar = Calendar.getInstance();
     private SimpleDateFormat mTimeFormat = new SimpleDateFormat(Constants.TIME_FORMAT);
+
 
     @Nullable
     @Override
@@ -71,7 +72,7 @@ public class RemainderFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        ((MainActivity) mView.getContext()).findViewById(R.id.tab_layout).setClickable(true);
+        ((MainActivity) mView.getContext()).findViewById(R.id.tab_layout).setVisibility(View.VISIBLE);
     }
 
     private void initViews() {
@@ -126,6 +127,7 @@ public class RemainderFragment extends Fragment {
         public void onClick(View v) {
             mOneDay.delete();
             getActivity().getSupportFragmentManager().popBackStack();
+            apply();
         }
     };
 
@@ -157,9 +159,12 @@ public class RemainderFragment extends Fragment {
 
                 Toast.makeText(mView.getContext(), R.string.reminder_saved, Toast.LENGTH_SHORT).show();
                 getActivity().getSupportFragmentManager().popBackStack();
+
             } else {
                 Toast.makeText(mView.getContext(), R.string.message_empty, Toast.LENGTH_SHORT).show();
             }
+
+            apply();
         }
     };
 
@@ -214,5 +219,10 @@ public class RemainderFragment extends Fragment {
             newCalendarItem.setIsSetAlarm(true);
         }
         newCalendarItem.save();
+    }
+
+    private void apply() {
+        if (mTabNavigationInterface != null)
+            mTabNavigationInterface.refreshWeatherFragment();
     }
 }

@@ -1,6 +1,7 @@
 package com.organiser.fragment;
 
 import android.annotation.TargetApi;
+import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.os.Build;
 import android.os.Bundle;
@@ -20,6 +21,7 @@ import com.organiser.Constants;
 import com.organiser.activity.MainActivity;
 import com.organiser.data.TimeConverter;
 import com.organiser.adapter.CalendarDayAdapter;
+import com.organiser.interfaces.ITabNavigation;
 import com.organiser.model.CalendarItem;
 import com.organiser.R;
 
@@ -30,7 +32,7 @@ import java.util.List;
 
 
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-public class CalendarFragment extends Fragment {
+public class CalendarFragment extends BaseTabFragment {
 
     private View mView;
     private TextView mCurrentMonthAndYear;
@@ -42,20 +44,13 @@ public class CalendarFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mView = inflater.inflate(R.layout.fragment_calendar, container, false);
 
-
-        return mView;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        ((MainActivity) mView.getContext()).findViewById(R.id.tab_layout).setVisibility(View.VISIBLE);
         setRetainInstance(true);
 
         initViews();
         setDefaultValue();
         setAdapterFromDate(getCalendarItems());
+
+        return mView;
     }
 
     private void initViews() {
@@ -122,19 +117,8 @@ public class CalendarFragment extends Fragment {
     }
 
     private void openReminderFragment(String date) {
-        Bundle bundles = new Bundle();
-        bundles.putString(Constants.KEY_CURRENT_DATE, date);
-
-        RemainderFragment fragment = new RemainderFragment();
-        fragment.setArguments(bundles);
-
-        ((FragmentActivity) mView.getContext())
-                .getSupportFragmentManager()
-                .beginTransaction()
-                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                .replace(R.id.custom_fragment, fragment)
-                .addToBackStack(null)
-                .commit();
+       if (mTabNavigationInterface != null)
+           mTabNavigationInterface.openReminderFragment(date);
     }
 
     View.OnClickListener onButtonPrevMonthClick = new View.OnClickListener() {
@@ -156,4 +140,17 @@ public class CalendarFragment extends Fragment {
             setAdapterFromDate(listCalendarDay);
         }
     };
+
+
+    @Override
+    public void refresh() {
+        setAdapterFromDate(getCalendarItems());
+    }
+
+    @Override
+    public String getTitle() {
+        if (getActivity() != null)
+            return getString(R.string.calendar);
+        return "";
+    }
 }

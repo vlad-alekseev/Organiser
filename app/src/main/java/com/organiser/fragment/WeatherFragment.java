@@ -9,7 +9,7 @@ import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -25,12 +25,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.organiser.Constants;
-import com.organiser.adapter.ForecastFromNextDaysAdapter;
-import com.organiser.model.ForecastItem;
 import com.organiser.R;
+import com.organiser.adapter.ForecastFromNextDaysAdapter;
 import com.organiser.adapter.ForecastFromTimeAdapter;
 import com.organiser.data.apiImplementation.ApiImplForecast;
 import com.organiser.data.parser.CurrencyApiParser;
+import com.organiser.model.ForecastItem;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -40,7 +40,7 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 @TargetApi(Build.VERSION_CODES.GINGERBREAD)
-public class WeatherFragment extends Fragment {
+public class WeatherFragment extends BaseTabFragment {
 
     private View mView;
     private ApiImplForecast mApi;
@@ -77,9 +77,14 @@ public class WeatherFragment extends Fragment {
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         ViewGroup viewGroup = (ViewGroup) getView();
-        viewGroup.removeAllViewsInLayout();
+        if (viewGroup != null) {
+            viewGroup.removeAllViewsInLayout();
+        }
         View view = onCreateView(getActivity().getLayoutInflater(), viewGroup, null);
-        viewGroup.addView(view);
+        if (viewGroup != null) {
+            viewGroup.addView(view);
+        }
+
     }
 
     private void initViews() {
@@ -276,5 +281,14 @@ public class WeatherFragment extends Fragment {
             getForecastAndSetInfo();
         }
     };
+
+
+    @Override
+    public String getTitle() {
+        if (getActivity() != null)
+            return getString(R.string.calendar);
+        return "";
+    }
+
 
 }
