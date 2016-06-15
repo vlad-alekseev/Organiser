@@ -80,6 +80,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/reminderDate"
                 android:layout_centerHorizontal="true"
+                android:clickable="true"
                 android:layout_margin="@dimen/standardIndent"
                 android:background="@drawable/rectangle_rounded_all_green"
                 android:paddingBottom="2dp"

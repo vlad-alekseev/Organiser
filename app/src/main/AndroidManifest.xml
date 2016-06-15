@@ -26,13 +26,17 @@
 
         <activity
             android:name="com.organiser.activity.MainActivity"
-            android:configChanges="orientation|screenSize"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+
+        <activity
+            android:name="com.organiser.activity.RemainderActivity"
+            android:theme="@style/Theme.AppCompat.Light">
         </activity>
 
         <activity

@@ -1,13 +1,12 @@
 package com.organiser.fragment;
 
 import android.annotation.TargetApi;
-import android.content.Context;
+import android.app.Activity;
 import android.support.v4.app.Fragment;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,10 +17,9 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.organiser.Constants;
-import com.organiser.activity.MainActivity;
+import com.organiser.activity.RemainderActivity;
 import com.organiser.data.TimeConverter;
 import com.organiser.adapter.CalendarDayAdapter;
-import com.organiser.interfaces.ITabNavigation;
 import com.organiser.model.CalendarItem;
 import com.organiser.R;
 
@@ -32,7 +30,7 @@ import java.util.List;
 
 
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-public class CalendarFragment extends BaseTabFragment {
+public class CalendarFragment extends Fragment {
 
     private View mView;
     private TextView mCurrentMonthAndYear;
@@ -48,7 +46,7 @@ public class CalendarFragment extends BaseTabFragment {
 
         initViews();
         setDefaultValue();
-        setAdapterFromDate(getCalendarItems());
+        setCalendarDays(getCalendarItems());
 
         return mView;
     }
@@ -95,7 +93,7 @@ public class CalendarFragment extends BaseTabFragment {
         return listCalendarDay;
     }
 
-    private void setAdapterFromDate(List<CalendarItem> listCalendarDay) {
+    private void setCalendarDays(List<CalendarItem> listCalendarDay) {
         CalendarDayAdapter mDayAdapter = new CalendarDayAdapter(
                 listCalendarDay, mCurrentMonthAndYear.getText().toString(),
                 Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
@@ -117,8 +115,9 @@ public class CalendarFragment extends BaseTabFragment {
     }
 
     private void openReminderFragment(String date) {
-       if (mTabNavigationInterface != null)
-           mTabNavigationInterface.openReminderFragment(date);
+        Intent currencyIntent = new Intent(getActivity(), RemainderActivity.class);
+        currencyIntent.putExtra(Constants.KEY_CURRENT_DATE, date);
+        startActivityForResult(currencyIntent, Constants.KEY_REMINDER);
     }
 
     View.OnClickListener onButtonPrevMonthClick = new View.OnClickListener() {
@@ -127,7 +126,7 @@ public class CalendarFragment extends BaseTabFragment {
             String currDate = mCurrentMonthAndYear.getText().toString();
             mCurrentMonthAndYear.setText(TimeConverter.changeMonth(currDate, Constants.MONTH_MINUS));
             List<CalendarItem> listCalendarDay = getCalendarItems();
-            setAdapterFromDate(listCalendarDay);
+            setCalendarDays(listCalendarDay);
         }
     };
 
@@ -137,20 +136,17 @@ public class CalendarFragment extends BaseTabFragment {
             String currDate = mCurrentMonthAndYear.getText().toString();
             mCurrentMonthAndYear.setText(TimeConverter.changeMonth(currDate, Constants.MONTH_PLUS));
             List<CalendarItem> listCalendarDay = getCalendarItems();
-            setAdapterFromDate(listCalendarDay);
+            setCalendarDays(listCalendarDay);
         }
     };
 
-
-    @Override
-    public void refresh() {
-        setAdapterFromDate(getCalendarItems());
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == Constants.KEY_REMINDER) {
+            if(resultCode == Activity.RESULT_OK){
+                setCalendarDays(getCalendarItems());
+            }
+        }
     }
 
-    @Override
-    public String getTitle() {
-        if (getActivity() != null)
-            return getString(R.string.calendar);
-        return "";
-    }
 }

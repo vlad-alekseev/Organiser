@@ -21,6 +21,9 @@ public class Constants {
     public static String ONCE_ALARM = "onceAlarm";
     public static String PREFERENCES_FORECAST = "memCashForecast";
     public static String PREFERENCES_CITY_NAME = "cityName";
+    public static String FOR_RESULT_CHANGES = "changes";
+
+    public static int KEY_REMINDER = 1;
 
 
 

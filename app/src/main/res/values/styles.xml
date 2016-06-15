@@ -1,9 +1,9 @@
 <resources>
 
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light">
         <item name="colorPrimary">@color/material_deep_teal_500</item>
         <item name="colorPrimaryDark">#FF00877A</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">@color/materialDesignGreen</item>
     </style>
 
     <style name="ForecastTheme">

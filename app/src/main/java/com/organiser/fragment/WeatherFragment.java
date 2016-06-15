@@ -9,6 +9,7 @@ import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
@@ -40,7 +41,7 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 @TargetApi(Build.VERSION_CODES.GINGERBREAD)
-public class WeatherFragment extends BaseTabFragment {
+public class WeatherFragment extends Fragment {
 
     private View mView;
     private ApiImplForecast mApi;
@@ -84,6 +85,9 @@ public class WeatherFragment extends BaseTabFragment {
         if (viewGroup != null) {
             viewGroup.addView(view);
         }
+
+        List<ForecastItem> fourDaysForecast = getForecastFromNextFourDays(mListForecastItems);
+        setAdapterFromDate(fourDaysForecast);
 
     }
 
@@ -240,7 +244,7 @@ public class WeatherFragment extends BaseTabFragment {
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
             lLayout = new GridLayoutManager(getActivity(), 4);
         } else {
-            lLayout = new GridLayoutManager(getActivity(), 2);
+            lLayout = new GridLayoutManager(getActivity(), 1);
         }
 
         RecyclerView.ItemAnimator itemAnimator = new DefaultItemAnimator();
@@ -281,14 +285,5 @@ public class WeatherFragment extends BaseTabFragment {
             getForecastAndSetInfo();
         }
     };
-
-
-    @Override
-    public String getTitle() {
-        if (getActivity() != null)
-            return getString(R.string.calendar);
-        return "";
-    }
-
 
 }

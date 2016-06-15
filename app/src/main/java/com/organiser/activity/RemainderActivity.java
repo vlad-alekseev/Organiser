@@ -1,21 +1,13 @@
-package com.organiser.fragment;
+package com.organiser.activity;
 
 
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.TimePickerDialog;
-import android.content.Context;
-import android.graphics.Color;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.os.Build;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SwitchCompat;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -24,11 +16,10 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.organiser.Constants;
-import com.organiser.activity.MainActivity;
-import com.organiser.data.TimeConverter;
-import com.organiser.model.CalendarItem;
 import com.organiser.R;
 import com.organiser.data.AlarmScheduleManager;
+import com.organiser.data.TimeConverter;
+import com.organiser.model.CalendarItem;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -36,10 +27,8 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 
-@TargetApi(Build.VERSION_CODES.HONEYCOMB)
-public class RemainderFragment extends BaseTabFragment {
+public class RemainderActivity extends AppCompatActivity {
 
-    private View mView;
     private Spinner mSpinner;
     private TextView mViewDate;
     private CalendarItem mOneDay;
@@ -53,36 +42,25 @@ public class RemainderFragment extends BaseTabFragment {
     private SimpleDateFormat mTimeFormat = new SimpleDateFormat(Constants.TIME_FORMAT);
 
 
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mView = inflater.inflate(R.layout.fragment_reminder, container, false);
-        ((MainActivity) mView.getContext()).findViewById(R.id.tab_layout).setVisibility(View.GONE);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_remainder);
 
-        setRetainInstance(true);
-
-        Bundle bundle = getArguments();
-        String currentDate = bundle.getString(Constants.KEY_CURRENT_DATE);
+        String currentDate = getIntent().getExtras().getString(Constants.KEY_CURRENT_DATE);
         initViews();
         setDefault(currentDate);
-
-        return mView;
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        ((MainActivity) mView.getContext()).findViewById(R.id.tab_layout).setVisibility(View.VISIBLE);
-    }
 
     private void initViews() {
-        mViewDate = (TextView) mView.findViewById(R.id.reminderDate);
-        mSpinner = (Spinner) mView.findViewById(R.id.spinnerCurrency);
-        mSaveButton = (Button) mView.findViewById(R.id.saveReminderButton);
-        mDeleteButton = (Button) mView.findViewById(R.id.deleteCalendarItemButton);
-        mTextMessage = (EditText) mView.findViewById(R.id.textMessage);
-        mTimeReminder = (TextView) mView.findViewById(R.id.timeReminder);
-        mSwitchAlarm = (SwitchCompat) mView.findViewById(R.id.switch_compat);
+        mViewDate = (TextView) findViewById(R.id.reminderDate);
+        mSpinner = (Spinner) findViewById(R.id.spinnerCurrency);
+        mSaveButton = (Button) findViewById(R.id.saveReminderButton);
+        mDeleteButton = (Button) findViewById(R.id.deleteCalendarItemButton);
+        mTextMessage = (EditText) findViewById(R.id.textMessage);
+        mTimeReminder = (TextView) findViewById(R.id.timeReminder);
+        mSwitchAlarm = (SwitchCompat) findViewById(R.id.switch_compat);
     }
 
     private void setDefault(String currentDate) {
@@ -126,15 +104,14 @@ public class RemainderFragment extends BaseTabFragment {
         @Override
         public void onClick(View v) {
             mOneDay.delete();
-            getActivity().getSupportFragmentManager().popBackStack();
-            apply();
+            finishActivity();
         }
     };
 
     View.OnClickListener onButtonSaveReminderClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            if (!mTextMessage.getText().toString().isEmpty()) {
+            if (!mTextMessage.getText().toString().equals("")) {
                 // removes old record for the creation of a new
                 if (mOneDay != null) {
                     mOneDay.delete();
@@ -143,28 +120,25 @@ public class RemainderFragment extends BaseTabFragment {
                 // Does not give the opportunity to set reminder in past tense
                 mTimeInMillis = getTimeInMillis();
                 if (mTimeInMillis > System.currentTimeMillis()) {
-                    AlarmScheduleManager.setReminderAlarm(getActivity().getApplicationContext(), mTimeInMillis);
+                    AlarmScheduleManager.setReminderAlarm(getApplicationContext(), mTimeInMillis);
                 } else {
-                    Toast.makeText(mView.getContext(), R.string.alarm_clock_not_included, Toast.LENGTH_LONG).show();
-                    mSwitchAlarm.setChecked(false);
-                    mSwitchAlarm.setClickable(false);
+                    if (mSwitchAlarm.isChecked()) {
+                        Toast.makeText(getApplicationContext(), R.string.alarm_clock_not_included,
+                                Toast.LENGTH_LONG).show();
+
+                        mSwitchAlarm.setChecked(false);
+                        mSwitchAlarm.setClickable(false);
+                    }
                 }
 
                 createNewCalendarItems();
 
-                // hide keyboard
-                InputMethodManager imm = (InputMethodManager) getActivity()
-                        .getSystemService(Activity.INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(mView.getWindowToken(), 0);
-
-                Toast.makeText(mView.getContext(), R.string.reminder_saved, Toast.LENGTH_SHORT).show();
-                getActivity().getSupportFragmentManager().popBackStack();
-
+                Toast.makeText(getApplicationContext(), R.string.reminder_saved, Toast.LENGTH_SHORT).show();
+                finishActivity();
             } else {
-                Toast.makeText(mView.getContext(), R.string.message_empty, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), R.string.message_empty, Toast.LENGTH_SHORT).show();
             }
 
-            apply();
         }
     };
 
@@ -187,7 +161,7 @@ public class RemainderFragment extends BaseTabFragment {
         public void onClick(View v) {
             int hour = mCalendar.get(Calendar.HOUR_OF_DAY);
             int minute = mCalendar.get(Calendar.MINUTE);
-            TimePickerDialog tpd = new TimePickerDialog(getActivity(),
+            TimePickerDialog tpd = new TimePickerDialog(RemainderActivity.this,
                     new TimePickerDialog.OnTimeSetListener() {
                         @Override
                         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
@@ -221,8 +195,11 @@ public class RemainderFragment extends BaseTabFragment {
         newCalendarItem.save();
     }
 
-    private void apply() {
-        if (mTabNavigationInterface != null)
-            mTabNavigationInterface.refreshWeatherFragment();
+    private void finishActivity() {
+        Intent intent = new Intent();
+        intent.putExtra(Constants.FOR_RESULT_CHANGES, getString(R.string.update));
+        setResult(Activity.RESULT_OK, intent);
+        finish();
     }
+
 }
