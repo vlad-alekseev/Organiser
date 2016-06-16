@@ -38,15 +38,10 @@ public class TimeConverter {
 
         Calendar cal = Calendar.getInstance();
         cal.setTime(myDate);
-        int monthOfYear = cal.get(Calendar.MONTH) + 1;
         if (type.equals(Constants.MONTH_PLUS)) {
-            if (monthOfYear != 12) {
-                cal.add(Calendar.MONTH, 1);
-            }
-        } else if (type.equals(Constants.MONTH_MINUS)){
-            if (monthOfYear != 1) {
-                cal.add(Calendar.MONTH, -1);
-            }
+            cal.add(Calendar.MONTH, 1);
+        } else if (type.equals(Constants.MONTH_MINUS)) {
+            cal.add(Calendar.MONTH, -1);
         }
 
         DateFormat dateFormatter = new DateFormat();

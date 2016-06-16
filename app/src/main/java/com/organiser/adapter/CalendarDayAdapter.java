@@ -1,6 +1,7 @@
 package com.organiser.adapter;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +20,7 @@ public class CalendarDayAdapter extends RecyclerView.Adapter<CalendarDayViewHold
 
     private View mView;
     private String mMonthAndYear;
-    private int mTodayNumber, mCurrentMonth, mSelectedMonth;
+    private int mTodayNumber, mCurrentMonth, mCurrentYear, mSelectedMonth, mSelectedYear;
     private List<CalendarItem> mListCalendarDay;
     private IItemEventListener mEventListener;
 
@@ -36,7 +37,9 @@ public class CalendarDayAdapter extends RecyclerView.Adapter<CalendarDayViewHold
         mListCalendarDay = listCalendarDay;
         mTodayNumber = todayNumber;
         mCurrentMonth = Calendar.getInstance().get(Calendar.MONTH) + 1;
+        mCurrentYear = Calendar.getInstance().get(Calendar.YEAR);
         mSelectedMonth = Integer.valueOf(TimeConverter.convertDate(monthAndYear, Constants.FORMAT_LLLL_yyyy, "MM"));
+        mSelectedYear = Integer.valueOf(TimeConverter.convertDate(monthAndYear, Constants.FORMAT_LLLL_yyyy, "yyyy"));
     }
 
     @Override
@@ -59,7 +62,7 @@ public class CalendarDayAdapter extends RecyclerView.Adapter<CalendarDayViewHold
 
             // set color background for current day
             if (calendarItem.getNumOfDay() == mTodayNumber) {
-                if (mSelectedMonth == mCurrentMonth) {
+                if (mSelectedMonth == mCurrentMonth && mSelectedYear == mCurrentYear) {
                     holder.calendarDay.setBackgroundResource(R.drawable.rectangle_rounded_all_orange);
                     holder.calendarDay.setTextColor(mView.getResources().getColor(R.color.colorWhite));
                 } else {
